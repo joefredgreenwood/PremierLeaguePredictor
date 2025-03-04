@@ -9,14 +9,11 @@ export default function LoginPage() {
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("HOW ARE WE NOT HERE");
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
     const username = formData.get("username") as string;
     const password = formData.get("password") as string;
-
-    console.log("signin page");
 
     const res = await signIn("credentials", {
       redirect: true,
@@ -32,7 +29,6 @@ export default function LoginPage() {
   };
 
   const wrapper = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("submitting");
     handleSubmit(e);
   };
 

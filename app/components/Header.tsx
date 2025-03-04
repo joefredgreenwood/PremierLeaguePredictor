@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import AuthButton from "./AuthButton";
 
 export const Header = () => {
   return (
@@ -9,6 +10,7 @@ export const Header = () => {
           <Link href="/"> Home</Link>
         </div>
         <div className="links">
+          <AuthButton />
           <Link href="/about">About</Link>
           <Link href="/about/team">Our Team</Link>
           <Link href="/login">Login</Link>

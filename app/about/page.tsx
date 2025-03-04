@@ -1,16 +1,15 @@
-import { authOptions } from "@/lib/auth";
+// import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import React from "react";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 const AboutPage = async () => {
   const session = await getServerSession(authOptions);
-  console.log({ session });
-
-  if (!session) {
-    console.log(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;!");
-    redirect("/login");
+  if (!session || !session.user) {
+    redirect("/api/auth/signin");
   }
+
   return <h1>About Page</h1>;
 };
 

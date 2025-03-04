@@ -3,7 +3,8 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/Header";
 import MongoConnectionPromise from "@/lib/mongodb";
-// import { dbConnect } from "@/lib/mongodb";
+import { getServerSession } from "next-auth";
+import SessionProvider from "./components/SessionProvider";
 
 const poppins = Poppins({
   weight: ["400", "700"],
@@ -24,13 +25,17 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   // await dbConnect();
+  const session = await getServerSession();
+  console.log(session);
 
   return (
     <html lang="en">
       <body className={`${poppins.variable} font-poppins`}>
-        {/* Add the header to everything as it is used within the layout */}
-        <Header></Header>
-        {children}
+        <SessionProvider session={session}>
+          {/* Add the header to everything as it is used within the layout */}
+          <Header />
+          {children}
+        </SessionProvider>
       </body>
     </html>
   );

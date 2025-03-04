@@ -1,11 +1,19 @@
 import React from "react";
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import logger from "@/services/logger";
 
-const HomePage = () => {
-  console.log(process.env.JWT_SECRET);
+const HomePage = async () => {
+  const session = await getServerSession();
+  console.log({ sessionInsideOfHomePage: session });
+  const name = session?.user?.name;
+  const height = session?.user?.height;
+  logger.info("This is a log");
   return (
     <div>
-      <h1>Welcome to my first Next App</h1>
+      <h1>
+        Welcome {name} to your first first Next App. You are {height}
+      </h1>
       <ul>
         <li>
           <Link href="/">Home</Link>
