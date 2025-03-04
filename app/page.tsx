@@ -2,9 +2,10 @@ import React from "react";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import logger from "@/services/logger";
+import authOptions from "@/lib/auth";
 
 const HomePage = async () => {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   console.log({ sessionInsideOfHomePage: session });
   const name = session?.user?.name;
   const height = session?.user?.height;

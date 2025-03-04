@@ -1,48 +1,48 @@
-// import { AuthOptions } from "next-auth";
-// import CredentialsProvider from "next-auth/providers/credentials";
-// import bcrypt from "bcryptjs";
-// import User from "@/models/User";
+import User from "@/models/User";
+import { AuthOptions } from "next-auth";
 
-// export const authOptions: AuthOptions = {
-//   providers: [
-//     CredentialsProvider({
-//       name: "Credentials",
-//       credentials: {
-//         username: { label: "Username", type: "text" },
-//         password: { label: "Password", type: "password" },
-//       },
-//       async authorize(credentials) {
-//         console.log("here");
-//         if (!credentials?.username || !credentials?.password) {
-//           throw new Error("Invalid username or password");
-//         }
-//         console.log({ credentials });
+import GitHubProvider from "next-auth/providers/github";
 
-//         const user = await User.findOne({ username: credentials.username });
-//         if (!user) {
-//           throw new Error("Invalid username or password");
-//         }
+const authOptions: AuthOptions = {
+  providers: [
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID ?? "",
+      clientSecret: process.env.GITHUB_SECRET ?? "",
+    }),
+  ],
+  callbacks: {
+    async jwt({ token, user }) {
+      console.log("Adding height to JWT");
+      // When the user logs in for the first time, store additional data in the token
+      if (user) {
+        try {
+          const dbUser = await User.findOne({ username: user.name });
+          if (dbUser) {
+            token.height = dbUser.height; // Add height to the JWT token
+            user.height = dbUser.height;
+            console.log("Height should be added here", token);
+          }
+        } catch (e) {
+          console.error(e);
+          token.height = "100";
+        }
+      }
+      return token;
+    },
+    async session({ session }) {
+      console.log("Updating the session here");
+      const user = await User.findOne({ username: session.user?.name });
 
-//         const isValidPassword = await bcrypt.compare(
-//           credentials.password,
-//           user.password
-//         );
-//         if (!isValidPassword) {
-//           throw new Error("Invalid username or password");
-//         }
+      if (user) {
+        session!.user!.height = user.height;
+      }
+      console.log("Session has been updated already ", {
+        sessionInsideOfGitHibShit: session,
+      });
 
-//         return {
-//           id: user.username.toString(),
-//           name: user.username,
-//         };
-//       },
-//     }),
-//   ],
-//   pages: {
-//     signIn: "/login",
-//   },
-//   session: {
-//     strategy: "jwt",
-//   },
-//   secret: process.env.JWT_SECRET,
-// };
+      return session;
+    },
+  },
+};
+
+export default authOptions;
