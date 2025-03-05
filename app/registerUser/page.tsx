@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import registerNewUser from "./action";
 import { SubmitButton } from "@/components/SubmitButton";
+import { toast } from "sonner";
 
 interface FormElements extends HTMLFormControlsCollection {
   username: HTMLInputElement;
@@ -21,6 +22,9 @@ export default function UserRegistrationForm() {
   const [isPending, startTransition] = useTransition();
 
   async function handleSubmit(event: FormEvent<FormElement>) {
+    toast("Adding user", {
+      description: "A user is currently being added",
+    });
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
@@ -28,6 +32,13 @@ export default function UserRegistrationForm() {
       try {
         await registerNewUser(formData);
         setErrorMessage("");
+        toast("User has been added to the database", {
+          description: "User has been added",
+          action: {
+            label: "Undo",
+            onClick: () => console.log("Undo"),
+          },
+        });
         // Potentially rest the form if it has been successful
       } catch (error: unknown) {
         setErrorMessage(

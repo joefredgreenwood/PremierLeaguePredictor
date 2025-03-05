@@ -5,6 +5,7 @@ import { Header } from "../components/Header";
 import MongoConnectionPromise from "@/lib/mongodb";
 import { getServerSession } from "next-auth";
 import SessionProvider from "../components/SessionProvider";
+import { Toaster } from "sonner";
 
 const poppins = Poppins({
   weight: ["400", "700"],
@@ -33,6 +34,7 @@ export default async function RootLayout({
           {/* Add the header to everything as it is used within the layout */}
           <Header />
           {children}
+          <Toaster />
         </SessionProvider>
       </body>
     </html>
