@@ -8,7 +8,7 @@ const HomePage = async () => {
   const session = await getServerSession(authOptions);
   const name = session?.user?.name;
   const height = session?.user?.height;
-  logger.info("This is a log");
+  // logger.info("This is a log");
   return (
     <div>
       <h1>
