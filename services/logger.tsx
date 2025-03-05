@@ -33,7 +33,7 @@ const getLogger = (fileName = "application") => {
     transports: consoleTransport,
   });
 
-  if (process.env.NODE_ENV === "development") {
+  if (process.env.LOCAL_DEV === "true") {
     logger.add(fileLogTransport);
   }
 
