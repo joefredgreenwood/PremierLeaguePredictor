@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/auth/callback/github": {
+    "api/auth/[...nextauth]/**/*": {
       "maxDuration": 30
     }
   }
