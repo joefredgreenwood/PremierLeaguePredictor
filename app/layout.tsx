@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import { Header } from "./components/Header";
+import { Header } from "../components/Header";
 import MongoConnectionPromise from "@/lib/mongodb";
 import { getServerSession } from "next-auth";
-import SessionProvider from "./components/SessionProvider";
+import SessionProvider from "../components/SessionProvider";
 
 const poppins = Poppins({
   weight: ["400", "700"],
