@@ -8,8 +8,12 @@ const authOptions: AuthOptions = {
     GitHubProvider({
       clientId: process.env.GITHUB_ID ?? "",
       clientSecret: process.env.GITHUB_SECRET ?? "",
+      httpOptions: {
+        timeout: 30000,
+      },
     }),
   ],
+
   callbacks: {
     async jwt({ token, user }) {
       // When the user logs in for the first time, store additional data in the token
