@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
-import logger from "@/services/logger";
+// import logger from "@/services/logger";
 import authOptions from "@/lib/auth";
 
 const HomePage = async () => {
