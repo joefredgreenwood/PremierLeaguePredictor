@@ -24,9 +24,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // await dbConnect();
   const session = await getServerSession();
-  console.log(session);
 
   return (
     <html lang="en">

@@ -5,7 +5,6 @@ import React, { Suspense } from "react";
 async function getUserName() {
   try {
     const blackJackSessions = await blackJackSessionModel.find().lean();
-    console.log(blackJackSessions);
     return blackJackSessions.length ? blackJackSessions[0].user : "hello";
   } catch (error) {
     console.error(error);

@@ -6,7 +6,6 @@ import authOptions from "@/lib/auth";
 
 const HomePage = async () => {
   const session = await getServerSession(authOptions);
-  console.log({ sessionInsideOfHomePage: session });
   const name = session?.user?.name;
   const height = session?.user?.height;
   logger.info("This is a log");
