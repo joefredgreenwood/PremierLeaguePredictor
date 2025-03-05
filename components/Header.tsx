@@ -13,6 +13,7 @@ export const Header = () => {
           <AuthButton />
           <Link href="/about">About</Link>
           <Link href="/about/team">Our Team</Link>
+          <Link href="/registerUser">Register a new user</Link>
         </div>
       </div>
     </header>

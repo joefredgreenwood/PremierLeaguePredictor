@@ -237,6 +237,65 @@ body {
   margin-bottom: 0;
 }
 
+.vertical-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.vertical-form label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.vertical-form input[type="text"],
+.vertical-form input[type="email"],
+.vertical-form input[type="number"],
+.vertical-form select,
+.vertical-form textarea {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.vertical-form button {
+    padding: 0.75rem;
+    border: 10px;
+    border-radius: 4px;
+    background-color: #0058b7;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.vertical-form button:hover {
+    background-color: #0058b7;
+}
+
+.vertical-form button:disabled {
+  color: #0058b7;
+  background-color: blueviolet;
+}
+
+.vertical-form button.disabled:hover {
+  color: #0058b7;
+  background-color: blueviolet;
+  cursor: not-allowed;
+
+}
+
+
+
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

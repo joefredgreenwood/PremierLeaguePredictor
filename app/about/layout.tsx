@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../globals.css";
 
+// Can supply page metadata to help with SEO
 export const metadata: Metadata = {
   title: "About page",
   description: "The about page for the next app",

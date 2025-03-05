@@ -4,14 +4,14 @@ import bcrypt from "bcryptjs";
 export interface IUser extends Document {
   username: string;
   email: string;
-  password: string; // Store only the hashed password
+  password?: string; // Store only the hashed password
   height: string;
 }
 
 const UserSchema = new Schema<IUser>({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true }, // Store the hashed password
+  password: { type: String, required: false }, // Store the hashed password
   height: { type: String, required: true },
 });
 
@@ -19,7 +19,9 @@ const UserSchema = new Schema<IUser>({
 UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
+  if (this.password) {
+    this.password = await bcrypt.hash(this.password, salt);
+  }
   next();
 });
 

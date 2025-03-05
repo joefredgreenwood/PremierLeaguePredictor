@@ -1,31 +1,43 @@
 import Loading from "@/app/loading";
-import blackJackSessionModel from "@/models/CardsPlayed";
+import User from "@/models/User";
+import Link from "next/link";
 import React, { Suspense } from "react";
 
-async function getUserName() {
+async function getUserNames(): Promise<string[]> {
   try {
-    const blackJackSessions = await blackJackSessionModel.find().lean();
-    return blackJackSessions.length ? blackJackSessions[0].user : "hello";
+    const users = await User.find().lean();
+    return users.length ? users.map((user) => user.username) : ["randomPerson"];
   } catch (error) {
     console.error(error);
-    return "Error";
+    throw error;
   }
 }
 
 async function getUserNameSlowWrapper() {
   await new Promise((resolve) => setTimeout(resolve, 4000));
-  return <h1>{getUserName()}</h1>;
+  const usernames = await getUserNames();
+  return (
+    <ul>
+      {usernames.map((username) => {
+        return (
+          <li key={username}>
+            <Link href={`/about/team/${username}`}> {username}</Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
 }
 
 const TeamPage = async () => {
   await new Promise((resolve) => setTimeout(resolve, 4000));
 
-  const username = getUserNameSlowWrapper();
+  const usernames = getUserNameSlowWrapper();
 
   return (
     <div>
       <h1>Fast Loading Part</h1>
-      <Suspense fallback={<Loading />}>{username} </Suspense>
+      <Suspense fallback={<Loading />}>{usernames} </Suspense>
     </div>
   );
 };
