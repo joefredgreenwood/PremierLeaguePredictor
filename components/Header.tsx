@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 
 export const Header = () => {
   const pathname = usePathname();
-  console.log({ pathname });
   return (
     <header className="header">
       <div className="container">
