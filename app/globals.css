@@ -112,14 +112,24 @@ body {
   text-decoration: none;
 }
 
-.links a {
+.link-not-selected {
   margin: 0 0.5rem 0 0.5rem;
   color: #fff;
   text-decoration: none;
 }
 
-.links a:hover {
-  text-decoration: underline;
+.link-not-selected:hover {
+    text-decoration: underline;
+}
+
+.link-selected {
+  margin: 0 0.5rem 0 0.5rem;
+  color: #e70f0f;
+  text-decoration: none;
+}
+
+.link-selected:hover {
+    text-decoration: underline;
 }
 
 .search-form {

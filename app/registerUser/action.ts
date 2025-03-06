@@ -5,4 +5,5 @@ export default async function registerNewUser(formData: FormData) {
   console.log(formData);
   const height = formData.get("height");
   console.log(height);
+  return "Hello here";
 }
