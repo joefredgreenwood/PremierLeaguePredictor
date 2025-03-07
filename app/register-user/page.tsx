@@ -48,7 +48,7 @@ function generateStringInput({
   );
 }
 
-export default function registerUserTanstack() {
+export default function RegisterUserTanstack() {
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const form = useForm({
@@ -120,10 +120,11 @@ export default function registerUserTanstack() {
                 return await validateUsername(value);
               },
             }}
-            children={(field) => {
+          >
+            {(field) => {
               return generateStringInput({ field, displayText: "First name" });
             }}
-          />
+          </form.Field>
         </div>
         <div>
           <form.Field
@@ -132,25 +133,22 @@ export default function registerUserTanstack() {
               onChange: ({ value }) =>
                 value.includes("@") ? undefined : "Please enter a valid email",
             }}
-            children={(field) =>
-              generateStringInput({ field, displayText: "Email" })
-            }
-          />
+          >
+            {(field) => generateStringInput({ field, displayText: "Email" })}
+          </form.Field>
         </div>
         <div>
-          <form.Field
-            name="height"
-            children={(field) =>
-              generateStringInput({ field, displayText: "Height" })
-            }
-          />
+          <form.Field name="height">
+            {(field) => generateStringInput({ field, displayText: "Height" })}
+          </form.Field>
         </div>
         <form.Subscribe
           selector={(state) => ({
-            canSubmit: state.canSubmit, // Computed submission state
+            canSubmit: state.canSubmit,
             isSubmitting: state.isSubmitting,
           })}
-          children={({ canSubmit, isSubmitting }) => {
+        >
+          {({ canSubmit, isSubmitting }) => {
             console.log({ canSubmit, isSubmitting });
             return (
               <>
@@ -164,7 +162,7 @@ export default function registerUserTanstack() {
               </>
             );
           }}
-        />
+        </form.Subscribe>
         {errorMessage && errorMessage}
       </form>
     </div>
