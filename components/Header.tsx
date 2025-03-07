@@ -10,11 +10,14 @@ export const Header = () => {
   return (
     <header className="header">
       <div className="container">
-        <div className="logo">
-          <Link href="/"> Home</Link>
-        </div>
-        <div>
-          <AuthButton />
+        <div className="navbar">
+          <Link
+            href="/"
+            className={pathname === "/" ? "link-selected" : "link-not-selected"}
+          >
+            {" "}
+            Home
+          </Link>
 
           <Link
             href="/about"
@@ -33,15 +36,16 @@ export const Header = () => {
             Our Team
           </Link>
           <Link
-            href="/registerUser"
+            href="/register-user"
             className={
-              pathname === "/registerUser"
+              pathname === "/register-user"
                 ? "link-selected"
                 : "link-not-selected"
             }
           >
             Register a new user
           </Link>
+          <AuthButton />
         </div>
       </div>
     </header>

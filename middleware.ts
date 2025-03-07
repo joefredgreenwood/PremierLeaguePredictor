@@ -6,9 +6,10 @@ import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 export function middleware(req: NextRequest, event: NextFetchEvent) {
   console.log("Global middleware runs for every request");
 
+  // If you had APIs could check the headers in here to make sure they are verified
+
   // Check if the route requires authentication
   const requiresAuth = req.nextUrl.pathname.startsWith("/about");
-
   if (requiresAuth) {
     console.log("This route requires authentication");
     // Let `withAuth` handle authentication

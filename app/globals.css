@@ -52,6 +52,7 @@ body {
     font-family: var(--font-poppins), sans-serif;
     background-color: #333; /* Tailwind's blue-500 hex code */
     color: #fff;
+    margin: 0;
 }
 
 .container {
@@ -283,6 +284,12 @@ body {
 .courses .card h2 {
   margin-bottom: 0;
 }
+.navbar {
+  display: flex; /* Ensures horizontal layout */
+  justify-content: space-between; /* Distributes space evenly */
+  align-items: center; /* Vertically aligns items */
+  padding: 1rem;
+}
 
 .vertical-form {
     display: flex;
@@ -295,6 +302,7 @@ body {
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #0047ab;
 }
 
 .vertical-form label {
@@ -338,6 +346,27 @@ body {
   background-color: blueviolet;
   cursor: not-allowed;
 
+}
+
+/* Ensure full viewport height */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Pushes the footer to the bottom */
+.content-wrapper {
+  flex: 1;
+  /* padding: 1rem; */
+}
+
+/* Footer styling */
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1rem;
 }
 
 @keyframes spin {

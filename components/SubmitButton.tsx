@@ -1,11 +1,12 @@
 interface SubmitButtonProps {
-  isPending: boolean;
+  canSubmit: boolean;
+  isSubmitting: boolean;
 }
 
-export function SubmitButton({ isPending }: SubmitButtonProps) {
+export function SubmitButton({ canSubmit, isSubmitting }: SubmitButtonProps) {
   return (
-    <button disabled={isPending} type="submit">
-      {isPending ? "Submitting..." : "Submit"}
+    <button disabled={!canSubmit} type="submit">
+      {isSubmitting ? "..." : "Submit"}
     </button>
   );
 }
