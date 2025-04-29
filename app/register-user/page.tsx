@@ -149,7 +149,6 @@ export default function RegisterUserTanstack() {
           })}
         >
           {({ canSubmit, isSubmitting }) => {
-            console.log({ canSubmit, isSubmitting });
             return (
               <>
                 <SubmitButton

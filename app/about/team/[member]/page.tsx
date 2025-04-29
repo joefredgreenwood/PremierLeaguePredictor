@@ -9,7 +9,7 @@ export default async function teamMember({
   return (
     <div>
       <h1>{member} </h1>
-      <Link href={`/about/team/${member}/somethingToNest`}>Nestit</Link>
+      <Link href={`/about/team/${member}/somethingToNest`}>Nested</Link>
     </div>
   );
 }
