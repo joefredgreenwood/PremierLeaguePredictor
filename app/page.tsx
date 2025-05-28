@@ -11,9 +11,7 @@ const HomePage = async () => {
   // logger.info("This is a log");
   return (
     <div>
-      <h1>
-        Welcome {name} to your first first Next App. You are {height}
-      </h1>
+      <h1>Welcome {name} to your first first Next App.</h1>
       <ul>
         <li>
           <Link href="/">Home</Link>

@@ -75,6 +75,10 @@ export default function RegisterUserTanstack() {
             ? error?.message
             : "Registration failed. Please try again."
         );
+        toast("Error adding user", {
+          description: `User could not be added due to ${errorMessage}`,
+        });
+        return;
       }
 
       toast("User has been added to the database", {
