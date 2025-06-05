@@ -7,6 +7,8 @@ import { getServerSession } from "next-auth";
 import SessionProvider from "../components/SessionProvider";
 import { Toaster } from "sonner";
 import Footer from "@/components/footer";
+import { fetchUserRequests } from "@/services/leagueStandings/fetchUsersLeagueStatus";
+import { LeagueRequests } from "@/services/leagueStandings/types/types";
 
 const poppins = Poppins({
   weight: ["400", "700"],
@@ -28,20 +30,24 @@ export default async function RootLayout({
 }>) {
   const session = await getServerSession();
 
+  let requests: LeagueRequests | undefined;
+  if (session?.user?.name) {
+    requests = await fetchUserRequests(session?.user?.name);
+  }
+
   return (
     <html lang="en">
-      <body className={`${poppins.variable} font-poppins`}>
-        <div className="page-container">
-          <SessionProvider session={session}>
-            <Header />
-            {/* Add the header to everything as it is used within the layout */}
-            <main className="content-wrapper">
-              {children}
-              <Toaster />
-            </main>
-          </SessionProvider>
-          <Footer />{" "}
-        </div>
+      <body
+        className={`${poppins.variable} font-poppins w-full min-h-screen flex flex-col`}
+      >
+        <SessionProvider session={session}>
+          <Header requests={requests} />
+          <main className="flex-1 p-4">
+            {children}
+            <Toaster />
+          </main>
+        </SessionProvider>
+        <Footer />
       </body>
     </html>
   );
