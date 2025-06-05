@@ -1,5 +1,4 @@
 import LeagueTable from "@/components/footballLeagueTable/LeagueTable";
-import LeagueComparator from "@/components/footballLeagueTable/LeagueTableComparator";
 import {
   currentSeason,
   currentTeams,

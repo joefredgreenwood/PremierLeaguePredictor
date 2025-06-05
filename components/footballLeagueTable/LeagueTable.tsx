@@ -20,6 +20,7 @@ import SortableTeam from "@/components/footballLeagueTable/SortableTeam";
 import addNewPrediction from "@/app/action";
 import { SelectedTeamContext } from "./LeagueTableComparator";
 import { getDifferenceBetweenTeam } from "@/services/leagueComparisonLogic/getDifferenceBetweenTeams";
+import { toast } from "sonner";
 
 const LeagueTable: React.FC<{
   isEnabled: boolean;
@@ -90,7 +91,10 @@ const LeagueTable: React.FC<{
         {isEnabled && (
           <button
             type="submit"
-            onClick={() => addNewPrediction({ username, table: teams })}
+            onClick={() => {
+              addNewPrediction({ username, table: teams });
+              toast("You have successfully submitted your predictions");
+            }}
             className="mx-2 bg-slate-800 hover:bg-slate-400 rounded-md transition p-2 flex flex-grow w-98 text-white text-lg text-center mx-auto"
           >
             Submit
