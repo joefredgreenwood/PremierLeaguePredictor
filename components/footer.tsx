@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
-    <footer className="footer">
-      <p>&copy; 2025 My Website - All Rights Reserved</p>
+    <footer className="bg-slate-800 text-white text-xl px-6 py-4 shadow-md  ">
+      <p>&copy; Premier League Predictions </p>
     </footer>
   );
 }

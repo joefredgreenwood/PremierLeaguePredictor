@@ -1,26 +1,13 @@
-import React from "react";
-import Link from "next/link";
-import { getServerSession } from "next-auth";
-// import logger from "@/services/logger";
-import authOptions from "@/lib/auth";
-
-const HomePage = async () => {
-  const session = await getServerSession(authOptions);
-  const name = session?.user?.name;
-  const height = session?.user?.height;
-  // logger.info("This is a log");
+const HomePage: React.FC = async () => {
   return (
-    <div>
-      <h1>Welcome {name} to your first first Next App.</h1>
-      <ul>
-        <li>
-          <Link href="/">Home</Link>
-        </li>
-        <li>
-          <Link href="/about">About</Link>
-        </li>
-      </ul>
-    </div>
+    <>
+      <h1 className="text-3xl">Premier League Table</h1>
+      <div className="flex mt-10 ml-10">
+        <div className="w-1/3 ml-10">
+          <h3 className="text-lg">Home Page</h3>
+        </div>
+      </div>
+    </>
   );
 };
 
