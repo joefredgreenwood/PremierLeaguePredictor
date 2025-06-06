@@ -15,7 +15,7 @@ function verifyIfResponseIsCorrect(
 
 export async function getPremierLeagueStandings() {
   const premierLeagueResponse = await fetch(baseUrlPremierLeague, {
-    headers: { "X-Auth-token": process.env["X-Auth-token"] || "" },
+    headers: { "X-Auth-token": process.env["FOOTBALL_DATA_API_KEY"] || "" },
   });
 
   if (!premierLeagueResponse.ok) {
