@@ -1,20 +1,21 @@
 import { Schema, model, models, Document, Model } from "mongoose";
 
-export interface IPredictions extends Document {
+export interface Prediction {
   username: string;
   season: string;
-  table: string[];
+  leagueTable: string[];
   topGoalScorer: string;
   topAssister: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
+export interface PredictionDocument extends Document, Prediction {}
 
-const PredictionSchema = new Schema<IPredictions>(
+const PredictionSchema = new Schema<PredictionDocument>(
   {
     username: String,
     season: String,
-    table: [String],
+    leagueTable: [String],
     topGoalScorer: String,
     topAssister: String,
     createdAt: Date,
@@ -24,7 +25,7 @@ const PredictionSchema = new Schema<IPredictions>(
 );
 
 const Prediction =
-  (models.Prediction as Model<IPredictions>) ||
-  model<IPredictions>("Prediction", PredictionSchema, "predictions");
+  (models.Prediction as Model<PredictionDocument>) ||
+  model<PredictionDocument>("Prediction", PredictionSchema, "predictions");
 
 export default Prediction;

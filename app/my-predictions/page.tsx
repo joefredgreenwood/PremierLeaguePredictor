@@ -6,18 +6,19 @@ import {
 } from "@/constants/CurrentSeason";
 import authOptions from "@/lib/auth";
 import Prediction from "@/models/Prediction";
+
 import { getServerSession } from "next-auth";
 
 const MyPredictionsPage: React.FC = async () => {
   const session = await getServerSession(authOptions);
-  const name = session?.user?.name ?? "";
+  const name = session?.user?.email ?? "";
 
   const userPredictions = await Prediction.findOne({
     season: currentSeason,
     username: name,
   });
 
-  const leagueTableToDisplay = userPredictions?.table ?? currentTeams;
+  const leagueTableToDisplay = userPredictions?.leagueTable ?? currentTeams;
 
   return (
     <div className="mx-auto text-center">

@@ -18,7 +18,7 @@ export default async function addNewPrediction({
     },
     {
       $set: {
-        table,
+        leagueTable: table,
         topAssister: "Saka",
         topGoalScorer: "Salah",
       },

@@ -7,7 +7,7 @@ import { getServerSession } from "next-auth";
 
 const LeaguesPage = async () => {
   const session = await getServerSession(authOptions);
-  const username = session?.user?.name ?? "";
+  const username = session?.user?.email ?? "";
 
   const { confirmedLeagues } = await getMyLeagues({ username });
   return (
@@ -16,33 +16,15 @@ const LeaguesPage = async () => {
         <>
           {confirmedLeagues.map((league) => {
             return (
-              <div key={league.leagueName} className="w-1/2 p-5">
-                <PredictionLeagueTable
-                  leagueName={league.leagueName}
-                  rankedStandings={league.rankedStandings}
-                ></PredictionLeagueTable>
-              </div>
+              <PredictionLeagueTable
+                leagueName={league.leagueName}
+                rankedStandings={league.rankedStandings}
+                key={league.leagueName}
+              ></PredictionLeagueTable>
             );
           })}
         </>
       )}
-      <PredictionLeagueTable
-        leagueName="My First League"
-        rankedStandings={[
-          {
-            username: "JoeGreenwood",
-            pointsDifferential: 12,
-          },
-          {
-            username: "AliciaDunn",
-            pointsDifferential: 17,
-          },
-          {
-            username: "BillyGreenwood",
-            pointsDifferential: 19,
-          },
-        ]}
-      />
     </>
   );
 };

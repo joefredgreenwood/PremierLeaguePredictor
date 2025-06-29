@@ -1,21 +1,28 @@
 import { currentSeason } from "@/constants/CurrentSeason";
-import League from "@/models/League";
+import PredictionLeagueTable from "@/models/PredictionLeagueTable";
 
-export async function createLeagueTable(
-  username: string,
-  leagueName: string,
+export async function createLeagueTable({
+  username,
+  leagueName,
+  peopleToInvite,
+  season = currentSeason,
   footballLeague = "premierLeague",
-  season = currentSeason
-) {
+}: {
+  username: string;
+  leagueName: string;
+  peopleToInvite: string[];
+  footballLeague?: string;
+  season?: string;
+}) {
   // TODO - Add Error Handling
-  await League.insertOne({
+  await PredictionLeagueTable.insertOne({
     ownerUsername: username,
     footballLeague,
     leagueName,
     season,
-    confirmedMembers: [],
+    confirmedMembers: [username],
     usersWhoHaveRequestedToJoin: [],
-    invitedUsers: [],
+    invitedUsers: peopleToInvite,
   });
 }
 
@@ -25,7 +32,7 @@ export async function requestToJoinLeague(
   season = currentSeason
 ) {
   // TODO - Add validation to ensure not already a member
-  await League.updateOne(
+  await PredictionLeagueTable.updateOne(
     { leagueName: leagueName, season },
     {
       $addToSet: {
@@ -42,7 +49,7 @@ export async function respondToRequestToJoinLeague(
   acceptUser: boolean,
   season = currentSeason
 ) {
-  const league = await League.findOne({ leagueName, season });
+  const league = await PredictionLeagueTable.findOne({ leagueName, season });
   if (league?.ownerUsername !== userRespondingToRequest) {
     throw new Error("");
   }
@@ -50,7 +57,7 @@ export async function respondToRequestToJoinLeague(
     throw new Error("User has not requested to join");
   }
 
-  await League.updateOne(
+  await PredictionLeagueTable.updateOne(
     { _id: league._id },
     {
       $set: {
@@ -76,11 +83,11 @@ export async function respondToLeagueInvite(
   season = currentSeason
 ) {
   // Verify the username has been requested to join league
-  const league = await League.findOne({ leagueName, season });
+  const league = await PredictionLeagueTable.findOne({ leagueName, season });
   if (!league?.invitedUsers.includes(username)) {
     throw new Error("User was never invited");
   }
-  League.updateOne(
+  PredictionLeagueTable.updateOne(
     { _id: league._id },
     {
       $set: {
@@ -105,7 +112,7 @@ export async function inviteUserToLeague(
   userMakingRequest: string,
   season = currentSeason
 ) {
-  const league = await League.findOne({ leagueName, season });
+  const league = await PredictionLeagueTable.findOne({ leagueName, season });
   if (!league?.confirmedMembers.includes(userMakingRequest)) {
     throw new Error("Only league members can invite a user");
   }
@@ -113,7 +120,7 @@ export async function inviteUserToLeague(
     // User is already a confirmed member and therefore does not need to be invited
     return;
   }
-  await League.updateOne(
+  await PredictionLeagueTable.updateOne(
     { _id: league._id },
     {
       $addToSet: {

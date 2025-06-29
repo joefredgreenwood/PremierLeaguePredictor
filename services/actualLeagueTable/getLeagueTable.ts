@@ -30,13 +30,20 @@ export async function getPremierLeagueStandings() {
   return formatPlTable(premierLeagueTable);
 }
 
-function formatPlTable(response: FootballDataResponse): string[] {
+function formatPlTable(response: FootballDataResponse): {
+  table: string[];
+  totalGamesPlayed: number;
+} {
+  let gamesPlayed = 0;
   const formattedTable = response.standings
     .find((tableObj) => tableObj.type === "TOTAL")
-    ?.table.map((teamObj) => teamObj.team.name);
+    ?.table.map((teamObj) => {
+      gamesPlayed += teamObj.playedGames;
+      return teamObj.team.name;
+    });
 
   if (!formattedTable) {
     throw new Error("Total table not provided");
   }
-  return formattedTable;
+  return { table: formattedTable, totalGamesPlayed: gamesPlayed };
 }
