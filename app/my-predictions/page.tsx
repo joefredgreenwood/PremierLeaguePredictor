@@ -16,7 +16,7 @@ const MyPredictionsPage: React.FC = async () => {
   const userPredictions = await Prediction.findOne({
     season: currentSeason,
     username: name,
-  });
+  }).lean();
 
   const leagueTableToDisplay = userPredictions?.leagueTable ?? currentTeams;
 

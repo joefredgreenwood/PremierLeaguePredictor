@@ -1,7 +1,7 @@
 import { currentSeason } from "@/constants/CurrentSeason";
 import PredictionLeagueTable from "@/models/PredictionLeagueTable";
 
-export async function createLeagueTable({
+export async function createPredictionLeagueTable({
   username,
   leagueName,
   peopleToInvite,
