@@ -2,7 +2,7 @@
 
 import { createPredictionLeagueTable } from "@/services/leagueStandings/manageLeagueMembership";
 import { CreateNewLeague } from "./types";
-import PredictionLeagueTable from "@/models/PredictionLeagueTable";
+import PredictionLeagueTableModel from "@/models/PredictionLeagueTable";
 import { currentSeason } from "@/constants/CurrentSeason";
 
 export default async function registerNewLeague(
@@ -17,7 +17,7 @@ export default async function registerNewLeague(
 }
 
 export async function validateLeagueName(leagueName: string): Promise<void> {
-  const existingLeague = await PredictionLeagueTable.findOne({
+  const existingLeague = await PredictionLeagueTableModel.findOne({
     season: currentSeason,
     leagueName: leagueName,
   });

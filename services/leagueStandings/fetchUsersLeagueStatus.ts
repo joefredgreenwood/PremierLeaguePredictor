@@ -1,4 +1,4 @@
-import PredictionLeagueTable from "@/models/PredictionLeagueTable";
+import PredictionLeagueTableModel from "@/models/PredictionLeagueTable";
 import Prediction from "@/models/Prediction";
 import { getPremierLeagueStandings } from "../actualLeagueTable/getLeagueTable";
 import { getDifferenceBetweenLeagueTable } from "../leagueComparisonLogic/getDifferenceBetweenTeams";
@@ -11,7 +11,7 @@ async function fetchConfirmedLeagueStandings(
   currentTable: string[]
 ) {
   // fetch the confirmed leagues which the user is part of
-  const confirmedLeagues = await PredictionLeagueTable.find({
+  const confirmedLeagues = await PredictionLeagueTableModel.find({
     confirmedMembers: { $elemMatch: { $eq: username } },
     season,
   });
@@ -55,13 +55,13 @@ export async function fetchUserRequests(
   season = currentSeason
 ): Promise<LeagueRequests> {
   // TODO - Make one db query
-  const leaguesUserOwnsWithRequests = await PredictionLeagueTable.find({
+  const leaguesUserOwnsWithRequests = await PredictionLeagueTableModel.find({
     season,
     ownerUsername: username,
     "usersWhoHaveRequestedToJoin.0": { $exists: true },
   });
 
-  const leaguesUserHasBeenInvitedTo = await PredictionLeagueTable.find({
+  const leaguesUserHasBeenInvitedTo = await PredictionLeagueTableModel.find({
     season,
     invitedUsers: { $elemMatch: { $eq: username } },
   });
@@ -101,7 +101,7 @@ export async function getMyLeagues({
     currentLeagueTable.table
   );
 
-  const requestedLeagues = await PredictionLeagueTable.find({
+  const requestedLeagues = await PredictionLeagueTableModel.find({
     $or: [
       { usersWhoHaveRequestedToJoin: { $elemMatch: { $eq: username } } },
       { invitedUsers: { $elemMatch: { eq: username } } },

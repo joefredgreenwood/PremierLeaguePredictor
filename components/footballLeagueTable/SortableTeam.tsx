@@ -50,34 +50,43 @@ const SortableTeam: React.FC<SortableTeamProps> = ({
   return (
     <div ref={setNodeRef} style={style} {...attributes} className={tailwind}>
       {/* Left: Drag Handle */}
-      {isMovable && (
-        <div
-          {...listeners}
-          className="cursor-grab pr-2"
-          onClick={(e) => e.stopPropagation()} // prevent selection toggle on drag
-        >
-          <GripVertical className="w-4 h-4 text-gray-500" />
-        </div>
-      )}
-      <h2>{position}</h2>
+      <div className="flex items-center gap-2">
+        {isMovable && (
+          <div
+            {...listeners}
+            className="cursor-grab pr-2"
+            onClick={(e) => e.stopPropagation()} // prevent selection toggle on drag
+          >
+            <GripVertical className="w-4 h-4 text-gray-500" />
+          </div>
+        )}
+        <h2 className="flex flex-start">{position}. </h2>
+      </div>
 
       {/* Center: Team Name */}
-      <span className="flex-1">{teamName}</span>
+      <span>{teamName}</span>
 
-      {difference !== undefined && (
-        <div className={"bg-text-blue"}>{difference}</div>
-      )}
+      <div className="flex items-center justify-between ">
+        {difference !== undefined && (
+          <div
+            className={"bg-text-blue justify-items-end mr-6"}
+            title="Difference in positions with list being compared against"
+          >
+            {difference}
+          </div>
+        )}
 
-      {/* Right: Button */}
-      {setAsSelected && (
-        <button
-          type="button"
-          onClick={handleClick}
-          className="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-gray-100 text-sm cursor-pointer"
-        >
-          Select
-        </button>
-      )}
+        {/* Right: Button */}
+        {setAsSelected && (
+          <button
+            type="button"
+            onClick={handleClick}
+            className="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-gray-100 text-sm cursor-pointer"
+          >
+            Select
+          </button>
+        )}
+      </div>
     </div>
   );
 };

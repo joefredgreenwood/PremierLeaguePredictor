@@ -1,6 +1,6 @@
-import { Schema, model, models, Document, Model } from "mongoose";
+import { Schema, model, models, Model, Document } from "mongoose";
 
-export interface PredictionLeagueTable {
+interface PredictionLeagueTable {
   ownerUsername: string;
   leagueName: string;
   season: string;
@@ -11,30 +11,25 @@ export interface PredictionLeagueTable {
   updatedAt?: Date;
 }
 
-export interface PredictionLeagueTableDocument
-  extends Document,
-    PredictionLeagueTable {}
+export type PredictionLeagueTableDocument = PredictionLeagueTable & Document;
 
 const PredictionLeagueTableSchema = new Schema<PredictionLeagueTableDocument>(
   {
-    ownerUsername: String,
-    leagueName: String,
-    season: String,
-    confirmedMembers: [String],
-    usersWhoHaveRequestedToJoin: [String],
-    invitedUsers: [String],
-    createdAt: Date,
-    updatedAt: Date,
+    ownerUsername: { type: String, required: true },
+    leagueName: { type: String, required: true },
+    season: { type: String, required: true },
+    confirmedMembers: { type: [String], default: [] },
+    usersWhoHaveRequestedToJoin: { type: [String], default: [] },
+    invitedUsers: { type: [String], default: [] },
   },
   { timestamps: true, collection: "prediction-league-tables" }
 );
 
-const PredictionLeagueTable =
-  (models.PredictionLeagueTableDocument as Model<PredictionLeagueTableDocument>) ||
+const PredictionLeagueTableModel =
+  (models.PredictionLeagueTable as Model<PredictionLeagueTableDocument>) ||
   model<PredictionLeagueTableDocument>(
-    "PredictionLeagueTableDocument",
-    PredictionLeagueTableSchema,
-    "prediction-league-tables"
+    "PredictionLeagueTable",
+    PredictionLeagueTableSchema
   );
 
-export default PredictionLeagueTable;
+export default PredictionLeagueTableModel;

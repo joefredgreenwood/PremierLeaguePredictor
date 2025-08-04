@@ -1,14 +1,35 @@
+"use client";
+
 import { LeagueStandings } from "@/services/leagueStandings/types/types";
 import { MousePointerClickIcon } from "lucide-react";
+import { redirect } from "next/navigation";
+import { useSession } from "next-auth/react";
+
+import React from "react";
 
 const PredictionLeagueTable: React.FC<LeagueStandings> = ({
   leagueName,
   rankedStandings,
 }) => {
+  const session = useSession();
+  const username = session?.data?.user?.email ?? "";
+
   return (
     <>
-      <div className="bg-slate-800 text-white text-xl bg-5 p-5 ">
-        {leagueName}
+      <div className="bg-slate-800 text-white text-xl bg-5 p-5 flex items-center justify-between">
+        <span>{leagueName}</span>
+        <button
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+          onClick={() =>
+            redirect(
+              `/leagues/add-members?leagueName=${encodeURIComponent(
+                leagueName
+              )}`
+            )
+          }
+        >
+          Add Users
+        </button>
       </div>
 
       <div className="border border-gray-300 rounded-md overflow-hidden">
@@ -36,7 +57,17 @@ const PredictionLeagueTable: React.FC<LeagueStandings> = ({
               {user.pointsDifferential}
             </div>
             <div className="p-3 border-b sm:border-0">
-              <MousePointerClickIcon />
+              <button
+                onClick={() => {
+                  redirect(
+                    `/prediction-comparator?team1Email=${encodeURIComponent(
+                      username
+                    )}&team2Email=${encodeURIComponent(user.username)}`
+                  );
+                }}
+              >
+                <MousePointerClickIcon />
+              </button>
             </div>
           </div>
         ))}

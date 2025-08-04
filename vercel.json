@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/daily-task.ts": {
+      "schedule": "0 0 * * *"
+    }
+  }
+}

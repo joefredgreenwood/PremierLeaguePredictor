@@ -14,8 +14,7 @@ type TeamsProps = {
 const LeagueComparator: React.FC<{
   teamsList1: TeamsProps;
   teamsList2: TeamsProps;
-  username: string;
-}> = ({ teamsList1, teamsList2, username }) => {
+}> = ({ teamsList1, teamsList2 }) => {
   const [selectedTeam, setSelectedTeam] = useState<string>("");
 
   return (
@@ -26,7 +25,7 @@ const LeagueComparator: React.FC<{
           <LeagueTable
             isEnabled={teamsList1.isMovable}
             orderedTeams={teamsList1.teams}
-            username={username}
+            username={teamsList1.nameOfTeamsSelection}
             setSelectedTeam={setSelectedTeam}
           />
         </div>
@@ -35,7 +34,7 @@ const LeagueComparator: React.FC<{
           <LeagueTable
             isEnabled={teamsList2.isMovable}
             orderedTeams={teamsList2.teams}
-            username={username}
+            username={teamsList2.nameOfTeamsSelection}
             setSelectedTeam={setSelectedTeam}
             comparedTeams={teamsList1.teams}
           />

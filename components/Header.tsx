@@ -42,18 +42,19 @@ export const Header = ({
           requests?.leagueUserInvitedTo.length
         ) && (
           <div className="text-white font-medium py-2 px-4 text-2xl">
-            <button
-              type="button"
-              onClick={() => console.log("View requests")}
-              className="relative p-3 rounded-full bg-slate-600 hover:bg-slate-500 transition"
-            >
-              <Inbox className="text-white w-5 h-5" />
+            <Link href="/leagues/view-requests">
+              <button
+                type="button"
+                className="relative p-3 rounded-full bg-slate-600 hover:bg-slate-500 transition"
+              >
+                <Inbox className="text-white w-5 h-5" />
 
-              <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-semibold rounded-full px-1.5 min-w-[1rem] text-center">
-                {requests.leagueRequests.length +
-                  requests.leagueUserInvitedTo.length}
-              </span>
-            </button>
+                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-semibold rounded-full px-1.5 min-w-[1rem] text-center">
+                  {requests.leagueRequests.length +
+                    requests.leagueUserInvitedTo.length}
+                </span>
+              </button>
+            </Link>
           </div>
         )}
         <AuthButton />

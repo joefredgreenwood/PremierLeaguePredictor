@@ -5,7 +5,6 @@ import UserScore, {
 } from "@/models/UserScore";
 import { getDifferenceBetweenLeagueTable } from "../leagueComparisonLogic/getDifferenceBetweenTeams";
 import { currentSeason } from "@/constants/CurrentSeason";
-import { PredictionLeagueTableDocument } from "@/models/PredictionLeagueTable";
 
 export async function fetchScores({
   users,

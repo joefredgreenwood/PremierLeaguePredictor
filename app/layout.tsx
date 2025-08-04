@@ -31,8 +31,8 @@ export default async function RootLayout({
   const session = await getServerSession();
 
   let requests: LeagueRequests | undefined;
-  if (session?.user?.name) {
-    requests = await fetchUserRequests(session?.user?.name);
+  if (session?.user?.email) {
+    requests = await fetchUserRequests(session?.user?.email);
   }
 
   return (
