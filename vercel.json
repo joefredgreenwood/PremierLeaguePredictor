@@ -1,7 +1,8 @@
 {
-  "functions": {
-    "api/daily": {
+  "cron": [
+    {
+      "path": "/api/daily",
       "schedule": "0 0 * * *"
     }
-  }
+  ]
 }
