@@ -19,10 +19,6 @@ const RequestsPage = () => {
     undefined
   );
 
-  if (session.status === "loading") {
-    return <p>Loading...</p>;
-  }
-
   const handleSubmit = async (
     leagueName: string,
     decision: boolean,
@@ -52,10 +48,6 @@ const RequestsPage = () => {
     const getRequests = async () => {
       const res = await fetch(`/api/leagues/view-requests/${encodeURI(user)}`);
       const data = await res.json();
-      console.log(
-        data,
-        "---------------------------------------------------------------"
-      );
       setRequests(data);
     };
 
@@ -68,6 +60,9 @@ const RequestsPage = () => {
         <h3>You have no current requests</h3>
       </div>
     );
+  }
+  if (session.status === "loading") {
+    return <p>Loading...</p>;
   }
 
   return (

@@ -90,16 +90,15 @@ export async function respondToLeagueInvite(
     leagueName,
     season,
   });
+
   if (!league?.invitedUsers.includes(username)) {
     throw new Error("User was never invited");
   }
-  PredictionLeagueTableModel.updateOne(
+  const result = await PredictionLeagueTableModel.updateOne(
     { _id: league._id },
     {
       $set: {
-        usersWhoHaveRequestedToJoin: league.invitedUsers.filter(
-          (user) => user !== username
-        ),
+        invitedUsers: league.invitedUsers.filter((user) => user !== username),
       },
       ...(acceptInvite
         ? {

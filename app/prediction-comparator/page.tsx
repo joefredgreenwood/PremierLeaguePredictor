@@ -2,7 +2,11 @@ import LeagueComparator from "@/components/footballLeagueTable/LeagueTableCompar
 import { currentSeason } from "@/constants/CurrentSeason";
 import Prediction from "@/models/Prediction";
 
-const LeaguesPage = async ({ searchParams }: { searchParams: any }) => {
+const LeaguesPage = async (props: { searchParams: Promise<unknown> }) => {
+  const searchParams = (await props.searchParams) as {
+    team1Email: string;
+    team2Email: string;
+  };
   const team1Email = decodeURIComponent(searchParams.team1Email || "");
   const team2Email = decodeURIComponent(searchParams.team2Email || "");
 
