@@ -52,7 +52,7 @@ const RequestsPage = () => {
     };
 
     getRequests();
-  }, [session.status]);
+  }, [session.status, user]);
 
   if (!requests) {
     return (

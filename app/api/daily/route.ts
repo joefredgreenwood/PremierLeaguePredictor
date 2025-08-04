@@ -1,34 +1,20 @@
-// pages/api/daily-task.ts
 import { currentSeason } from "@/constants/CurrentSeason";
 import FootballLeagueTableModel from "@/models/FootballLeagueTable";
 import { getPremierLeagueStandings } from "@/services/actualLeagueTable/getLeagueTable";
 import { updateScoreForAllUsers } from "@/services/userScore/userScore";
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 
-type ResponseData =
-  | {
-      message: string;
-    }
-  | {
-      error: string;
-    };
-
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<ResponseData>
-) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method Not Allowed" });
-  }
-
+export async function POST(request: NextRequest) {
+  console.log(request.json);
   try {
     await doDailyWork();
-    return res
-      .status(200)
-      .json({ message: "Daily task completed successfully" });
+    return NextResponse.json({ message: "Daily task completed successfully" });
   } catch (error: unknown) {
     console.error("Error during daily task:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
 
