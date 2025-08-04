@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/daily-task.ts": {
+    "api/daily": {
       "schedule": "0 0 * * *"
     }
   }
