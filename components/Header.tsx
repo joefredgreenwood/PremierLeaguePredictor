@@ -27,7 +27,7 @@ export const Header = ({
           href="/my-predictions"
           className={generateTailwindCss(pathname === "/my-predictions")}
         >
-          My Predictions
+          Compare Predictions
         </Link>
         <Link
           href="/leagues"

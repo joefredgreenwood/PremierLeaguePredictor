@@ -24,9 +24,8 @@ const RequestsPage = () => {
     decision: boolean,
     userToAccept?: string
   ) => {
-    if (!user) {
-      return;
-    }
+    if (!user) return;
+
     await fetch(`/api/leagues/view-requests/${encodeURIComponent(user)}`, {
       method: "POST",
       headers: {
@@ -38,6 +37,26 @@ const RequestsPage = () => {
         decision,
         emailToAccept: userToAccept,
       }),
+    });
+
+    // Update the UI immediately after submission
+    setRequests((prev) => {
+      if (!prev) return prev;
+
+      return {
+        leagueRequests: userToAccept
+          ? prev.leagueRequests.filter(
+              (req) =>
+                !(
+                  req.leagueName === leagueName &&
+                  req.userRequesting === userToAccept
+                )
+            )
+          : prev.leagueRequests,
+        leagueUserInvitedTo: !userToAccept
+          ? prev.leagueUserInvitedTo.filter((name) => name !== leagueName)
+          : prev.leagueUserInvitedTo,
+      };
     });
   };
 

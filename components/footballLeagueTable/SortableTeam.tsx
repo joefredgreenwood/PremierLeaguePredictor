@@ -38,8 +38,7 @@ const SortableTeam: React.FC<SortableTeamProps> = ({
   };
 
   const tailwind =
-    `p-3 rounded-md text-m border w-full flex items-center justify-between ` +
-    (isMovable ? `text-slate-800 bg-blue-200` : `text-blue-800 bg-red-50`) +
+    `p-3 rounded-md text-m border w-full flex items-center justify-between text-slate-800 bg-blue-200` +
     (isSelected ? "bg-green-500" : "");
 
   const handleClick = (e: React.MouseEvent) => {
