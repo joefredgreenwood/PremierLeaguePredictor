@@ -10,7 +10,6 @@ export async function GET(req: NextRequest, context: unknown) {
   const decodedEmail = decodeURI(
     (context as { params: { encodedEmail: string } }).params.encodedEmail
   );
-  console.log("Getting requests via api ################################");
   const userRequests = await fetchUserRequests(decodedEmail);
   return NextResponse.json(userRequests);
 }
@@ -26,10 +25,7 @@ export async function POST(request: NextRequest, context: unknown) {
     emailToAccept?: string;
   };
 
-  // TODO: Verify the body is in the correct shape
-  console.log(
-    "hitting API to accept -------------------------------------------"
-  );
+  // TODO: Verify the body is in the correct shape\s
 
   try {
     if (body.emailToAccept) {

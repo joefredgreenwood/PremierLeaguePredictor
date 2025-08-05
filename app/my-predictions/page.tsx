@@ -1,15 +1,12 @@
-import LeagueTable from "@/components/footballLeagueTable/LeagueTable";
-import {
-  currentSeason,
-  currentTeams,
-  hasSeasonStarted,
-} from "@/constants/CurrentSeason";
+import LeagueComparator from "@/components/footballLeagueTable/LeagueTableComparator";
+import { currentSeason } from "@/constants/CurrentSeason";
 import authOptions from "@/lib/auth";
+import FootballLeagueTableModel from "@/models/FootballLeagueTable";
 import Prediction from "@/models/Prediction";
-
+import { getPremierLeagueStandings } from "@/services/actualLeagueTable/getLeagueTable";
 import { getServerSession } from "next-auth";
 
-const MyPredictionsPage: React.FC = async () => {
+const PredictionVersusActualPage = async () => {
   const session = await getServerSession(authOptions);
   const name = session?.user?.email ?? "";
 
@@ -18,25 +15,35 @@ const MyPredictionsPage: React.FC = async () => {
     username: name,
   }).lean();
 
-  const leagueTableToDisplay = userPredictions?.leagueTable ?? currentTeams;
+  const currentLeagueTable =
+    (
+      await FootballLeagueTableModel.findOne(
+        {},
+        {},
+        { sort: { createdAt: -1 } }
+      )
+    )?.league ?? (await getPremierLeagueStandings()).table;
+
+  if (!userPredictions || !currentLeagueTable) {
+    return <div>Please submit your predictions first</div>;
+  }
 
   return (
-    <div className="mx-auto text-center">
-      <h1 className="text-3xl mx-auto">Premier League Table</h1>
-      <h2 className="mx-auto">
-        {userPredictions
-          ? "Please view your predictions and make any required changes"
-          : "Please submit your predictions"}
-      </h2>
-      <div className="w-1/2 mx-auto">
-        <LeagueTable
-          orderedTeams={leagueTableToDisplay}
-          username={name}
-          isEnabled={!hasSeasonStarted}
-        ></LeagueTable>
-      </div>
-    </div>
+    <>
+      <LeagueComparator
+        teamsList1={{
+          isMovable: false,
+          nameOfTeamsSelection: name,
+          teams: userPredictions.leagueTable,
+        }}
+        teamsList2={{
+          isMovable: false,
+          nameOfTeamsSelection: "Actual League Table",
+          teams: currentLeagueTable,
+        }}
+      ></LeagueComparator>
+    </>
   );
 };
 
-export default MyPredictionsPage;
+export default PredictionVersusActualPage;

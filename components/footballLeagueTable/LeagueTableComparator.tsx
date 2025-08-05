@@ -20,7 +20,7 @@ const LeagueComparator: React.FC<{
   return (
     <div className="flex mt-10 ml-10">
       <SelectedTeamContext.Provider value={selectedTeam}>
-        <div className="w-1/3 ml-10">
+        <div className="w-2/5 ml-10">
           <h3 className="text-lg">{teamsList1.nameOfTeamsSelection}</h3>
           <LeagueTable
             isEnabled={teamsList1.isMovable}
@@ -29,7 +29,7 @@ const LeagueComparator: React.FC<{
             setSelectedTeam={setSelectedTeam}
           />
         </div>
-        <div className="w-1/3 ml-10">
+        <div className="w-2/5 ml-10">
           <h3 className="text-lg">{teamsList2.nameOfTeamsSelection}</h3>
           <LeagueTable
             isEnabled={teamsList2.isMovable}

@@ -1,14 +1,42 @@
-const HomePage: React.FC = async () => {
+import LeagueTable from "@/components/footballLeagueTable/LeagueTable";
+import {
+  currentSeason,
+  currentTeams,
+  hasSeasonStarted,
+} from "@/constants/CurrentSeason";
+import authOptions from "@/lib/auth";
+import Prediction from "@/models/Prediction";
+
+import { getServerSession } from "next-auth";
+
+const MyPredictionsPage: React.FC = async () => {
+  const session = await getServerSession(authOptions);
+  const name = session?.user?.email ?? "";
+
+  const userPredictions = await Prediction.findOne({
+    season: currentSeason,
+    username: name,
+  }).lean();
+
+  const leagueTableToDisplay = userPredictions?.leagueTable ?? currentTeams;
+
   return (
-    <>
-      <h1 className="text-3xl">Premier League Table</h1>
-      <div className="flex mt-10 ml-10">
-        <div className="w-1/3 ml-10">
-          <h3 className="text-lg">Home Page</h3>
-        </div>
+    <div className="mx-auto text-center">
+      <h1 className="text-3xl mx-auto">Premier League Table</h1>
+      <h2 className="mx-auto">
+        {userPredictions
+          ? "Please view your predictions and make any required changes"
+          : "Please submit your predictions"}
+      </h2>
+      <div className="w-1/2 mx-auto">
+        <LeagueTable
+          orderedTeams={leagueTableToDisplay}
+          username={name}
+          isEnabled={!hasSeasonStarted}
+        ></LeagueTable>
       </div>
-    </>
+    </div>
   );
 };
 
-export default HomePage;
+export default MyPredictionsPage;

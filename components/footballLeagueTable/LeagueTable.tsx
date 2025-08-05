@@ -95,7 +95,7 @@ const LeagueTable: React.FC<{
               addNewPrediction({ username, table: teams });
               toast("You have successfully submitted your predictions");
             }}
-            className="bg-slate-800 hover:bg-slate-400 rounded-md transition p-2 flex flex-grow w-98 text-white text-lg text-center mx-auto"
+            className="bg-slate-800 hover:bg-slate-400 rounded-md transition p-2 flex flex-grow justify-center w-98 text-white text-lg text-center mx-auto"
           >
             Submit
           </button>

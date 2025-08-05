@@ -9,6 +9,7 @@ export default async function registerNewLeague(
   { leagueName, peopleToInvite }: CreateNewLeague,
   email: string
 ): Promise<void> {
+  // TODO: Add verification to peopleToInvite
   await createPredictionLeagueTable({
     username: email,
     leagueName,

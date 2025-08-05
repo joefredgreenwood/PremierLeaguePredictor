@@ -54,7 +54,10 @@ const RequestsPage = () => {
     getRequests();
   }, [session.status, user]);
 
-  if (!requests) {
+  if (
+    !requests?.leagueRequests.length &&
+    !requests?.leagueUserInvitedTo.length
+  ) {
     return (
       <div>
         <h3>You have no current requests</h3>
@@ -68,69 +71,100 @@ const RequestsPage = () => {
   return (
     <>
       {!!requests.leagueRequests.length && (
-        <div>
-          Requests to join your league
-          {requests.leagueRequests.map((request) => {
-            return (
-              <div
-                className="flex flex-row"
-                key={`${request.leagueName}${request.userRequesting}`}
-              >
-                <h3>
-                  League Name - {request.leagueName} User -
-                  {request.userRequesting}
-                </h3>
-                <button
-                  onClick={() =>
-                    handleSubmit(
-                      request.leagueName,
-                      true,
-                      request.userRequesting
-                    )
-                  }
-                  className="text-blue-600 mt-2 mb-4"
-                >
-                  Accept Request
-                </button>
-                <button
-                  className="text-red-600 mt-2 mb-4"
-                  onClick={() =>
-                    handleSubmit(
-                      request.leagueName,
-                      false,
-                      request.userRequesting
-                    )
-                  }
-                >
-                  Decline Request
-                </button>
-              </div>
-            );
-          })}
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  League Name
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  User
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {requests.leagueRequests.map((request) => (
+                <tr key={`${request.leagueName}${request.userRequesting}`}>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {request.leagueName}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {request.userRequesting}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <button
+                      onClick={() =>
+                        handleSubmit(
+                          request.leagueName,
+                          true,
+                          request.userRequesting
+                        )
+                      }
+                      className="bg-blue-600 text-white px-4 py-2 rounded mr-2"
+                    >
+                      Accept
+                    </button>
+                    <button
+                      onClick={() =>
+                        handleSubmit(
+                          request.leagueName,
+                          false,
+                          request.userRequesting
+                        )
+                      }
+                      className="bg-red-600 text-white px-4 py-2 rounded"
+                    >
+                      Decline
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
       {!!requests.leagueUserInvitedTo.length && (
-        <div>
-          Requests to join a new league
-          {requests.leagueUserInvitedTo.map((request) => {
-            return (
-              <div className="flex flex-row" key={request}>
-                <h3>League Name - {request}</h3>
-                <button
-                  onClick={() => handleSubmit(request, true)}
-                  className="text-blue-600 mt-2 mb-4"
-                >
-                  Accept Request
-                </button>
-                <button
-                  className="text-red-600 mt-2 mb-4"
-                  onClick={() => handleSubmit(request, false)}
-                >
-                  Decline Request
-                </button>
-              </div>
-            );
-          })}
+        <div className="overflow-x-auto">
+          <h2 className="text-lg font-semibold mb-4">
+            Requests to join a new league
+          </h2>
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  League Name
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {requests.leagueUserInvitedTo.map((request) => (
+                <tr key={request}>
+                  <td className="px-6 py-4 whitespace-nowrap">{request}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <button
+                      onClick={() => handleSubmit(request, true)}
+                      className="bg-blue-600 text-white px-4 py-2 rounded mr-2"
+                    >
+                      Accept
+                    </button>
+                    <button
+                      onClick={() => handleSubmit(request, false)}
+                      className="bg-red-600 text-white px-4 py-2 rounded"
+                    >
+                      Decline
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </>

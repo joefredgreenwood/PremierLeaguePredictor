@@ -13,7 +13,7 @@ export function SubmitButton({ canSubmit, isSubmitting }: SubmitButtonProps) {
                 hover:bg-blue-700 hover:shadow-md
                 disabled:bg-gray-400 disabled:text-gray-100 disabled:cursor-not-allowed
                 cursor-pointer
-                transition duration-150 ease-in-out"
+                transition duration-150 ease-in-out text-center"
     >
       {isSubmitting ? "..." : "Submit"}
     </button>
