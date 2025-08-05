@@ -9,6 +9,7 @@ export default function AuthButton() {
       <button
         className="mx-2 bg-slate-600 hover:bg-slate-400 rounded-md transition py-2 px-4 cursor-grab"
         onClick={() => (session ? signOut() : signIn())}
+        title={session?.user?.email ?? "Please sign In"}
       >
         {session ? "Sign out" : "Sign In"}
       </button>
