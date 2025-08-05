@@ -21,9 +21,7 @@ const LeaguesPage = () => {
       .split(",")
       .map((e) => e.trim())
       .filter((e) => e.length > 0);
-    // TODO: Call API to add users
     setEmails("");
-    alert(`Adding users: ${emailList.join(", ")}`);
     await inviteUsersToLeague(emailList, leagueName, user);
   };
 
