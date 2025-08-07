@@ -18,10 +18,12 @@ const LeagueComparator: React.FC<{
   const [selectedTeam, setSelectedTeam] = useState<string>("");
 
   return (
-    <div className="flex mt-10 ml-10">
+    <div className="flex flex-col md:flex-row gap-6 md:gap-10 mt-6 px-4 md:px-10">
       <SelectedTeamContext.Provider value={selectedTeam}>
-        <div className="w-2/5 ml-10">
-          <h3 className="text-lg">{teamsList1.nameOfTeamsSelection}</h3>
+        <div className="w-full md:w-1/2">
+          <h3 className="text-lg font-semibold mb-2 text-center md:text-left">
+            {teamsList1.nameOfTeamsSelection}
+          </h3>
           <LeagueTable
             isEnabled={teamsList1.isMovable}
             orderedTeams={teamsList1.teams}
@@ -29,8 +31,11 @@ const LeagueComparator: React.FC<{
             setSelectedTeam={setSelectedTeam}
           />
         </div>
-        <div className="w-2/5 ml-10">
-          <h3 className="text-lg">{teamsList2.nameOfTeamsSelection}</h3>
+
+        <div className="w-full md:w-1/2">
+          <h3 className="text-lg font-semibold mb-2 text-center md:text-left">
+            {teamsList2.nameOfTeamsSelection}
+          </h3>
           <LeagueTable
             isEnabled={teamsList2.isMovable}
             orderedTeams={teamsList2.teams}
