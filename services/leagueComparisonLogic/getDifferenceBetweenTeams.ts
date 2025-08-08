@@ -1,5 +1,3 @@
-import { string } from "zod";
-
 export function getDifferenceBetweenLeagueTable(
   leagueTable1: string[],
   leagueTable2: string[]

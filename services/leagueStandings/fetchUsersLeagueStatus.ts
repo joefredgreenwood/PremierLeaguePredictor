@@ -55,22 +55,16 @@ export async function fetchUserRequests(
   season = currentSeason
 ): Promise<LeagueRequests> {
   // TODO - Make one db query
-
-  console.log("Before request 1", username, season);
   const leaguesUserOwnsWithRequests = await PredictionLeagueTableModel.find({
     season,
     ownerUsername: username,
     "usersWhoHaveRequestedToJoin.0": { $exists: true },
   });
 
-  console.log("Log after request 1");
-
   const leaguesUserHasBeenInvitedTo = await PredictionLeagueTableModel.find({
     season,
     invitedUsers: { $elemMatch: { $eq: username } },
   });
-
-  console.log("Log after request 2");
 
   return {
     leagueRequests: leaguesUserOwnsWithRequests.flatMap((league) =>
