@@ -65,7 +65,9 @@ const RequestsPage = () => {
       return;
     }
     const getRequests = async () => {
-      const res = await fetch(`/api/leagues/view-requests/${encodeURI(user)}`);
+      const res = await fetch(
+        `/api/leagues/view-requests/${encodeURIComponent(user)}`
+      );
       const data = await res.json();
       setRequests(data);
     };
