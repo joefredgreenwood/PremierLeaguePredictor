@@ -5,6 +5,9 @@ import {
 
 import { fetchUserRequests } from "@/services/leagueStandings/fetchUsersLeagueStatus";
 import { NextRequest, NextResponse } from "next/server";
+import MongoConnectionPromise from "@/lib/mongodb";
+
+await MongoConnectionPromise;
 
 export async function GET(req: NextRequest, context: unknown) {
   const decodedEmail = decodeURIComponent(
