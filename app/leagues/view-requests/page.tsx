@@ -68,8 +68,12 @@ const RequestsPage = () => {
       const res = await fetch(
         `/api/leagues/view-requests/${encodeURIComponent(user)}`
       );
-      const data = await res.json();
-      setRequests(data);
+      if (res.ok) {
+        const data = await res.json();
+        setRequests(data);
+      } else {
+        console.error("This is an error");
+      }
     };
 
     getRequests();
