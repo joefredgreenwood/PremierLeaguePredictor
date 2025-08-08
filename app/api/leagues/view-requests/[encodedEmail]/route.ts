@@ -15,6 +15,8 @@ export async function GET(req: NextRequest, context: unknown) {
 
   const userRequests = await fetchUserRequests(decodedEmail);
 
+  console.log({ userRequests });
+
   return NextResponse.json(userRequests);
 }
 

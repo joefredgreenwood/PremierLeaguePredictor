@@ -61,10 +61,14 @@ export async function fetchUserRequests(
     "usersWhoHaveRequestedToJoin.0": { $exists: true },
   });
 
+  console.log("Log after request 1");
+
   const leaguesUserHasBeenInvitedTo = await PredictionLeagueTableModel.find({
     season,
     invitedUsers: { $elemMatch: { $eq: username } },
   });
+
+  console.log("Log after request 2");
 
   return {
     leagueRequests: leaguesUserOwnsWithRequests.flatMap((league) =>
