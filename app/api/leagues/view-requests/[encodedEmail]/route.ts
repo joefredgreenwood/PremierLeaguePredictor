@@ -7,13 +7,11 @@ import { fetchUserRequests } from "@/services/leagueStandings/fetchUsersLeagueSt
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, context: unknown) {
-  console.log("-------------------- API Being hit", new Date().toISOString());
-
-  const decodedEmail = decodeURI(
+  const decodedEmail = decodeURIComponent(
     (context as { params: { encodedEmail: string } }).params.encodedEmail
   );
+
   const userRequests = await fetchUserRequests(decodedEmail);
-  console.log("-------------------- API Being hit2", new Date().toUTCString());
 
   return NextResponse.json(userRequests);
 }
