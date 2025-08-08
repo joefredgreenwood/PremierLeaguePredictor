@@ -55,6 +55,8 @@ export async function fetchUserRequests(
   season = currentSeason
 ): Promise<LeagueRequests> {
   // TODO - Make one db query
+
+  console.log("Before request 1");
   const leaguesUserOwnsWithRequests = await PredictionLeagueTableModel.find({
     season,
     ownerUsername: username,
