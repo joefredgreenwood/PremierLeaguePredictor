@@ -11,6 +11,8 @@ export async function GET(req: NextRequest, context: unknown) {
     (context as { params: { encodedEmail: string } }).params.encodedEmail
   );
 
+  console.log({ decodedEmail });
+
   const userRequests = await fetchUserRequests(decodedEmail);
 
   return NextResponse.json(userRequests);

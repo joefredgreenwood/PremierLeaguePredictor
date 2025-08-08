@@ -72,7 +72,7 @@ const RequestsPage = () => {
         const data = await res.json();
         setRequests(data);
       } else {
-        console.error("This is an error");
+        console.error("This is an error", res.status, res.statusText);
       }
     };
 
